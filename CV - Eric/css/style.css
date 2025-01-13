@@ -1,0 +1,42 @@
+body{
+margin: 50px;
+background-color: rgb(179, 227, 255);
+}
+
+h1{
+text-align: center;
+font-size: 550%;
+
+}
+
+h2{
+font-size: 350%;
+
+}
+
+ul{
+font-size: 200%;
+
+}
+
+table{
+width: 100%;
+
+}
+
+td{
+align-content:start
+
+}
+
+img{
+margin-top: 25%;
+
+}
+
+.font-tope-guapa {
+    font-family: "Protest Strike", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
