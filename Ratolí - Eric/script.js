@@ -3,6 +3,7 @@ let ctx;
 let FPS = 50;
 let imatgeProta;
 let imatgeEnemic1;
+let tilemap;
 
 let anchoF = 50;
 let altoF = 50;
@@ -13,21 +14,21 @@ let tierra = '#815418';
 let pared = '#C7430B';
 let llave1 = '#FFF700';
 let llave2 = '';
-let puerta1 = '#3D20F9';
-let puerta2 = '';
+let puerta_cerrada = '#3D20F9';
+let puerta_abierta = '';
 
 let escenari = [
     [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
     [1, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 1],
     [1, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 4, 0, 1],
-    [1, 0, 0, 0, 2, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 2, 0, 2, 0, 1],
-    [1, 0, 0, 0, 2, 0, 2, 0, 0, 2, 2, 2, 2, 0, 0, 2, 0, 2, 0, 1],
-    [1, 0, 0, 0, 2, 0, 2, 0, 0, 2, 2, 0, 2, 0, 0, 2, 0, 2, 0, 1],
+    [1, 0, 0, 0, 2, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 2, 1, 2, 0, 1],
+    [1, 0, 0, 0, 2, 0, 2, 0, 0, 2, 2, 2, 2, 0, 0, 2, 1, 2, 0, 1],
+    [1, 0, 0, 0, 2, 0, 2, 0, 0, 2, 2, 0, 2, 0, 0, 2, 1, 2, 0, 1],
     [1, 0, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 1],
-    [1, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 1],
-    [1, 0, 2, 0, 0, 2, 0, 2, 2, 2, 2, 0, 0, 2, 0, 2, 0, 2, 0, 1],
-    [1, 0, 2, 0, 0, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0, 2, 0, 2, 0, 1],
+    [1, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 1, 2, 0, 1],
+    [1, 0, 2, 0, 0, 2, 0, 2, 2, 2, 2, 0, 0, 2, 0, 2, 1, 2, 0, 1],
+    [1, 0, 2, 0, 0, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0, 2, 1, 2, 0, 1],
     [1, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 1],
     [1, 0, 2, 2, 2, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1],
     [1, 0, 2, 0, 0, 2, 2, 2, 0, 2, 0, 0, 2, 2, 2, 0, 2, 0, 0, 0],
@@ -45,6 +46,9 @@ function inicializar() {
 
     imatgeEnemic1 = new Image();
     imatgeEnemic1.src = './Esqueleto enemigo juego.png'
+
+    tilemap = new Image();
+    tilemap.src = './Textures i personatges videojoc - Eric.png'
 
     setInterval(function () {
         principal()
@@ -93,7 +97,8 @@ let player = function (x, y, ancho, alto,) {
 
     this.dibujo = function () {
 
-        ctx.drawImage(imatgeProta, this.x, this.y)
+        /*ctx.drawImage(imatgeProta, this.x, this.y)*/
+        ctx.drawImage(tilemap,0,32,32,32,this.x,this.y,anchoF,altoF)
     }
 
     this.colisio = function (y, x) {
@@ -189,7 +194,8 @@ let personaje = function (x, y, ancho, alto, vel) {
 
     this.dibuixa = function () {
 
-        ctx.drawImage(imatgeEnemic1, this.x, this.y)
+        /*ctx.drawImage(imatgeEnemic1, this.x, this.y)*/
+        ctx.drawImage(tilemap,64,32,32,32,this.x,this.y,anchoF,altoF)
     }
 
     this.mueve = function () {
@@ -297,7 +303,11 @@ function dibuixaEscenari() {
 
         for (let x = 0; x < 20; x++) {
 
-            if (escenari[y][x] == 0) {
+            let tile = escenari[y][x]
+
+            ctx.drawImage(tilemap,tile*32,0,32,32,anchoF*x,altoF*y,anchoF,altoF)
+
+            /*if (escenari[y][x] == 0) {
                 color = hierba
             }
 
@@ -329,7 +339,7 @@ function dibuixaEscenari() {
                 color = puerta2
             }
             ctx.fillStyle = color;
-            ctx.fillRect(x * anchoF, y * altoF, anchoF, altoF)
+            ctx.fillRect(x * anchoF, y * altoF, anchoF, altoF)*/
         }
     }
 }
